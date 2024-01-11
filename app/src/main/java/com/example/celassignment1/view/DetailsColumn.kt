@@ -64,6 +64,7 @@ fun RowScope.DetailsColumn(
             .fillMaxHeight()
             .padding(horizontal = 8.dp)
     ) {
+        Text(text = "Tap to select, Long press and drag to move text")
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.Start,
