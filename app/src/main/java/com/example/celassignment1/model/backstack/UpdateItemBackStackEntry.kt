@@ -8,7 +8,6 @@ class UpdateItemBackStackEntry(
     private val newItem: TextItem
 ): BackStackEntry() {
     override fun undo(idToTextItemMap: SnapshotStateMap<Int, TextItem>, id: Int?): Boolean {
-        println("Undoing update: old = $oldItem, new = $newItem...............................")
         idToTextItemMap[newItem.id] = oldItem
         return newItem.id == id
     }

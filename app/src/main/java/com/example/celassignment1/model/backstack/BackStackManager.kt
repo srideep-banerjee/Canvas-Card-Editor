@@ -14,14 +14,12 @@ class BackStackManager(
     fun undo(id: Int?): Boolean {
         val result = head.undo(idToTextItemMap, id)
         head = head.behind?:emptyBackStackEntry
-        println("Undo: Backstack length = $backStackLength, head = $head")
         return result
     }
 
     fun redo(id: Int?): Boolean {
         val result = head.ahead?.redo(idToTextItemMap, id) ?: false
         head = head.ahead?:head
-        println("Redo: Backstack length = $backStackLength, head = $head")
         return result
     }
 
@@ -34,6 +32,5 @@ class BackStackManager(
         } else {
             backStackLength++
         }
-        println("Add: Backstack length = $backStackLength, head = $head")
     }
 }

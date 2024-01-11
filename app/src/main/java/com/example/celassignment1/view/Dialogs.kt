@@ -216,7 +216,6 @@ fun ColorDialog(color: MutableState<Color>, dialogState: MutableState<PopupListT
         item = {},
         size = 0
     ) {
-        println("ColorDialog: Setting color to ${tempColor}........................")
         color.value = tempColor
         dialogState.value = PopupListType.NONE
     }

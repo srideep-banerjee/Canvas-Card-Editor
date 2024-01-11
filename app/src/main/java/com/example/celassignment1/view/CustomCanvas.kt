@@ -51,7 +51,6 @@ fun CustomCanvas(
     onDragStart: (Offset) -> Unit,
     onDragEnd: (start: Offset, end: Offset) -> Unit
 ) {
-    println("Recomposition in custom canvas............................")
     var dragOffset by remember {
         mutableStateOf(Offset(0f, 0f))
     }
