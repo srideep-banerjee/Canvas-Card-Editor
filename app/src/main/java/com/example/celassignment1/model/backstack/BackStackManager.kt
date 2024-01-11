@@ -6,7 +6,7 @@ import com.example.celassignment1.model.TextItem
 class BackStackManager(
     private val idToTextItemMap: SnapshotStateMap<Int, TextItem>
 ) {
-    private val maxBackStackLength = 5
+    private val maxBackStackLength = 15
     private var backStackLength = 0
     private val emptyBackStackEntry = EmptyBackStackEntry()
     private var head: BackStackEntry = emptyBackStackEntry
@@ -28,6 +28,7 @@ class BackStackManager(
         entry.behind = head
         head = entry
         if (backStackLength == maxBackStackLength) {
+            emptyBackStackEntry.ahead?.ahead?.behind = emptyBackStackEntry
             emptyBackStackEntry.ahead = emptyBackStackEntry.ahead?.ahead
         } else {
             backStackLength++
