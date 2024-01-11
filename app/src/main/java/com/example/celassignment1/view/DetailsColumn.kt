@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -57,12 +60,14 @@ fun RowScope.DetailsColumn(
     onColorButtonClicked: () -> Unit,
     onAdd: ()->Unit
 ) {
+    val scrollState = rememberScrollState(0)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .weight(1f, true)
             .fillMaxHeight()
             .padding(horizontal = 8.dp)
+            .scrollable(state = scrollState, orientation = Orientation.Vertical)
     ) {
         Text(text = "Tap to select, Long press and drag to move text")
         Column(
@@ -212,10 +217,6 @@ fun TextSelector(textState: MutableState<String>) {
         )
     }
 
-    var initial by remember {
-        mutableStateOf(true)
-    }
-
     LaunchedEffect(key1 = tempTextState) {
         delay(2000)
         if (textState.value != tempTextState.text) {
@@ -238,8 +239,7 @@ fun TextSelector(textState: MutableState<String>) {
         BasicTextField(
             value = tempTextState,
             onValueChange = {
-                if(!initial) tempTextState = it
-                else initial = false
+                tempTextState = tempTextState.copy(it.text, TextRange(Int.MAX_VALUE))
             },
             modifier = Modifier
                 .height(24.dp)
